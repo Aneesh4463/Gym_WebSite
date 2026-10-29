@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Membership Plan | PULSE FITNESS</title>
+</head>
+<body>
+    <h1>Delete Membership Plan</h1>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ plan.plan_name }}</strong>?
+    </p>
+
+    <p>Price: ₹{{ plan.price }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete Plan</button>
+    </form>
+
+    <a href="{% url 'membership_plan_list' %}">
+        Cancel
+    </a>
+</body>
+</html>

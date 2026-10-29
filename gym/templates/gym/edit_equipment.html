@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Equipment | PULSE FITNESS</title>
+</head>
+<body>
+    <h1>PULSE FITNESS</h1>
+    <h2>Edit Equipment: {{ equipment.name }}</h2>
+
+    {% if equipment.image %}
+        <p>Current Image:</p>
+        <img
+            src="{{ equipment.image.url }}"
+            alt="{{ equipment.name }}"
+            width="200"
+        >
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Update Equipment</button>
+    </form>
+
+    <p>
+        <a href="{% url 'equipment_list' %}">
+            Cancel
+        </a>
+    </p>
+</body>
+</html>

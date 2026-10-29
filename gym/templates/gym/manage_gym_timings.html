@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Gym Timings | PULSE FITNESS</title>
+</head>
+<body>
+    <h1>PULSE FITNESS</h1>
+    <h2>Manage Gym Timings</h2>
+
+    <h3>Update Working Hours</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="day">Select Day:</label>
+        <select name="day" id="day" required>
+            <option value="">Choose a day</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+
+        <br><br>
+
+        <label for="opening_time">Opening Time:</label>
+        <input type="time" name="opening_time" id="opening_time">
+
+        <br><br>
+
+        <label for="closing_time">Closing Time:</label>
+        <input type="time" name="closing_time" id="closing_time">
+
+        <br><br>
+
+        <label>
+            <input type="checkbox" name="is_closed" value="on">
+            Gym is closed on this day
+        </label>
+
+        <br><br>
+
+        <button type="submit">Save Timing</button>
+    </form>
+
+    <hr>
+
+    <h3>Current Gym Timings</h3>
+
+    {% for timing in timings %}
+        <div>
+            <h4>{{ timing.day }}</h4>
+
+            {% if timing.is_closed %}
+                <p>Closed</p>
+            {% else %}
+                <p>Opening: {{ timing.opening_time|time:"h:i A" }}</p>
+                <p>Closing: {{ timing.closing_time|time:"h:i A" }}</p>
+            {% endif %}
+        </div>
+        <hr>
+    {% empty %}
+        <p>No gym timings have been added yet.</p>
+    {% endfor %}
+
+    <a href="{% url 'owner_dashboard' %}">Back to Dashboard</a>
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Training Packages | PULSE FITNESS</title>
+</head>
+<body>
+
+    <h1>Personal Training Packages</h1>
+
+    <p>
+        <a href="{% url 'owner_dashboard' %}">Back to Dashboard</a>
+    </p>
+
+    <p>
+        <a href="{% url 'personal_training_package_add' %}">
+            + Add New Package
+        </a>
+    </p>
+
+    {% if packages %}
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Package Name</th>
+                    <th>Duration</th>
+                    <th>Sessions</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Benefits</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for package in packages %}
+                    <tr>
+                        <td>{{ package.package_name }}</td>
+                        <td>{{ package.duration }}</td>
+                        <td>{{ package.sessions }}</td>
+                        <td>₹{{ package.price }}</td>
+                        <td>{{ package.description|default:"No description" }}</td>
+                        <td>{{ package.benefits|default:"No benefits added" }}</td>
+                        <td>
+                            {% if package.is_active %}
+                                Active
+                            {% else %}
+                                Inactive
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <a href="{% url 'personal_training_package_edit' package.id %}">
+    Edit
+</a>
+<p><a href="{% url 'personal_training_package_delete' package.id %}">
+    Delete
+</a></p>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No Personal Training packages have been added yet.</p>
+    {% endif %}
+
+</body>
+</html>

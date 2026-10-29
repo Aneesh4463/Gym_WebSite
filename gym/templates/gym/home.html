@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSE FITNESS | Elite Gym & Training Center</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#FF3E3E',
+                            redDark: '#D32F2F',
+                            darkBg: '#0B0C10',
+                            cardBg: '#12141C',
+                            cardBorder: '#222634',
+                            accentGlow: 'rgba(255, 62, 62, 0.15)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0C10;
+            color: #E2E8F0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-nav {
+            background: rgba(11, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(18, 20, 28, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 62, 62, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(255, 62, 62, 0.25);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0B0C10; }
+        ::-webkit-scrollbar-thumb { background: #222634; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF3E3E; }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, #A0AEC0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-red {
+            background: linear-gradient(135deg, #FF3E3E 0%, #FF8A8A 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-glow { box-shadow: 0 0 20px rgba(255, 62, 62, 0.4); }
+        .btn-glow:hover { box-shadow: 0 0 30px rgba(255, 62, 62, 0.7); }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-red selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center transform group-hover:rotate-6 transition-transform duration-300">
+                        <i class="fa-solid font-black fa-dumbbell text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-wider text-white">
+                        PULSE<span class="text-brand-red">.</span>FITNESS
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden xl:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="#home" class="text-gray-300 hover:text-brand-red transition-colors">Home</a>
+                    <a href="#programs" class="text-gray-300 hover:text-brand-red transition-colors">Programs</a>
+                    <a href="#pricing" class="text-gray-300 hover:text-brand-red transition-colors">Fee Structure</a>
+                    <a href="#personal-training" class="text-gray-300 hover:text-brand-red transition-colors">1-on-1 PT</a>
+                    <a href="#timings" class="text-gray-300 hover:text-brand-red transition-colors">Timings</a>
+                    <a href="#shop" class="text-gray-300 hover:text-brand-red transition-colors">Gear Store</a>
+                    <a href="#trainers" class="text-gray-300 hover:text-brand-red transition-colors">Trainers</a>
+                    <a href="#supplements" class="text-gray-300 hover:text-brand-red transition-colors">Supplements</a>
+                </nav>
+
+                <!-- Desktop CTA & Cart -->
+                <div class="hidden lg:flex items-center space-x-5">
+                    <button onclick="toggleCartDrawer()" class="relative p-2 text-gray-300 hover:text-brand-red transition-colors">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-brand-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button onclick="openModal('membership')" class="bg-brand-red hover:bg-brand-redDark text-white px-6 py-2.5 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 btn-glow transform hover:-translate-y-0.5">
+                        JOIN NOW
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="flex items-center lg:hidden space-x-4">
+                    <button onclick="toggleCartDrawer()" class="relative p-2 text-gray-300 hover:text-brand-red">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cart-count-mobile" class="absolute -top-1 -right-1 bg-brand-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-brand-darkBg/95 border-b border-brand-cardBorder px-6 pt-4 pb-6 space-y-4">
+            <a href="#home" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Home</a>
+            <a href="#programs" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Programs</a>
+            <a href="#pricing" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Fee Structure</a>
+            <a href="#personal-training" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Personal Training</a>
+            <a href="#timings" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Timings & Hours</a>
+            <a href="#shop" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Gear Store</a>
+            <a href="#trainers" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Trainers</a>
+            <a href="#supplements" class="mobile-link block text-gray-300 hover:text-brand-red text-base font-semibold">Supplements</a>
+            <button onclick="openModal('membership')" class="w-full bg-brand-red hover:bg-brand-redDark text-white py-3 rounded-xl font-bold text-center">
+                JOIN NOW
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+        <div class="absolute inset-0 z-0 hero-bg-img">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920" alt="Gym Dark Background" class="w-full h-full object-cover object-center filter brightness-50 contrast-125">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-darkBg via-brand-darkBg/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-brand-darkBg/50"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="max-w-3xl">
+                <div class="hero-elem inline-flex items-center space-x-2 bg-brand-red/10 border border-brand-red/30 px-4 py-1.5 rounded-full mb-6">
+                    <span class="flex h-2 w-2 rounded-full bg-brand-red animate-ping"></span>
+                    <span class="text-brand-red text-xs font-extrabold uppercase tracking-widest">New Year Offer: 20% OFF ALL MEMBERSHIPS</span>
+                </div>
+
+                <h1 class="hero-elem text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase leading-tight mb-6">
+                    BUILD YOUR <span class="text-gradient-red">ULTIMATE</span> BODY & MIND
+                </h1>
+
+                <p class="hero-elem text-gray-300 text-lg sm:text-xl font-normal mb-8 max-w-2xl leading-relaxed">
+                    World-class bio-mechanic equipment, elite certified trainers, and personalized transformation programs designed to shatter your personal records.
+                </p>
+
+                <div class="hero-elem flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                    <button onclick="openModal('trial')" class="bg-brand-red hover:bg-brand-redDark text-white px-8 py-4 rounded-xl font-bold text-base transition-all duration-300 btn-glow flex items-center justify-center space-x-3">
+                        <span>START 7-DAY FREE TRIAL</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+                    <a href="#programs" class="glass-card hover:bg-white/10 text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-base transition-all duration-300 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-circle-play text-brand-red"></i>
+                        <span>EXPLORE PROGRAMS</span>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 pt-8 border-t border-white/10">
+                    <div class="stat-box">
+                        <div class="text-3xl font-black text-white">15,000+</div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold mt-1">Sq. Ft. Facility</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="text-3xl font-black text-white">100+</div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold mt-1">Pro Equipment</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="text-3xl font-black text-brand-red">15+</div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold mt-1">Master Coaches</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="text-3xl font-black text-white">2,500+</div>
+                        <div class="text-xs text-gray-400 uppercase font-semibold mt-1">Active Members</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAINING PROGRAMS SECTION -->
+    <section id="programs" class="py-24 bg-brand-darkBg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 section-header">
+                <span class="text-brand-red font-extrabold text-sm tracking-widest uppercase mb-2 block">Specialized Training</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">TRAINING PROGRAMS</h2>
+                <div class="w-16 h-1 bg-brand-red mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-400 text-base mt-4">Whether your target is muscle hypertrophy, fat oxidation, endurance, or mobility, we have a discipline custom-built for you.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="program-cards-container">
+                {% for program in programs %}
+                <div class="glass-card rounded-2xl overflow-hidden group program-card">
+                    <div class="relative h-60 overflow-hidden">
+                        <img
+                            src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600"
+                            alt="{{ program.program_name }}"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-cardBg via-transparent to-transparent"></div>
+
+                        <span class="absolute top-4 right-4 bg-brand-red/90 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                            {{ program.duration|default:"Training Program" }}
+                        </span>
+                    </div>
+
+                    <div class="p-6">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fa-solid fa-dumbbell text-brand-red text-xl"></i>
+                            <h3 class="text-xl font-bold text-white">{{ program.program_name }}</h3>
+                        </div>
+
+                        <p class="text-gray-400 text-sm mb-4">{{ program.description }}</p>
+
+                        <p class="text-gray-300 text-sm mb-6">Price: ₹{{ program.price }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-400">Training programs will be announced soon.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- FEE STRUCTURE / MEMBERSHIP PLANS SECTION -->
+    <section id="pricing" class="py-24 bg-black relative border-t border-brand-cardBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 section-header">
+                <span class="text-brand-red font-extrabold text-sm tracking-widest uppercase mb-2 block">Transparent Pricing</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">MEMBERSHIP FEE STRUCTURE</h2>
+                <div class="w-16 h-1 bg-brand-red mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-400 text-base mt-4">Choose the membership plan that aligns with your fitness aspirations. No hidden initiation fees.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                {% for plan in plans %}
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between relative pricing-card">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">{{ plan.plan_name }}</h3>
+
+                        <p class="text-gray-400 text-xs mb-6">{{ plan.description }}</p>
+
+                        <div class="flex items-baseline mb-6">
+                            <span class="text-4xl font-black text-white">₹{{ plan.price }}</span>
+                            <span class="text-gray-400 text-sm ml-2">/ {{ plan.duration }}</span>
+                        </div>
+
+                        <ul class="space-y-4 text-sm text-gray-300 mb-8 border-t border-white/10 pt-6">
+                            {% for benefit in plan.benefit_list %}
+                                <li class="flex items-center">
+                                    <i class="fa-solid fa-circle-check text-brand-red mr-3"></i>
+                                    {{ benefit }}
+                                </li>
+                            {% empty %}
+                                <li class="text-gray-400">Contact us for membership benefits.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <button
+                        onclick="selectPlan('{{ plan.plan_name|escapejs }} - ₹{{ plan.price }}/{{ plan.duration|escapejs }}')"
+                        class="w-full py-3 rounded-xl border border-white/20 text-white font-bold hover:bg-brand-red hover:border-brand-red transition-all duration-300">
+                        Enquire Now
+                    </button>
+                </div>
+                {% empty %}
+                <p class="text-gray-400">Membership plans will be available soon.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- END MEMBERSHIP PLANS SECTION -->
+
+
+    <!-- PERSONAL TRAINING SECTION (now its own top-level section) -->
+    <section id="personal-training" class="py-24 bg-black relative border-t border-brand-cardBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-brand-red/40 bg-gradient-to-br from-brand-cardBg via-brand-cardBg to-brand-red/10 pt-section">
+
+                <!-- Decorative Background Effects -->
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-brand-red/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                <!-- Section Heading -->
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 mb-12">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-brand-red/20 text-brand-red px-3 py-1 rounded-md text-xs font-black uppercase mb-3">
+                            <i class="fa-solid fa-user-ninja"></i>
+                            <span>Separate 1-on-1 Coaching Packages</span>
+                        </div>
+
+                        <h3 class="text-3xl sm:text-4xl font-black text-white uppercase">PERSONAL TRAINING RATES</h3>
+
+                        <p class="text-gray-400 text-sm mt-3 max-w-xl leading-relaxed">
+                            Accelerate your progress with custom workout programming,
+                            strict form supervision, and personal guidance from our trainers.
+                            Choose a package that suits your fitness goals.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center space-x-3 bg-black/40 px-5 py-4 rounded-xl border border-white/10 shrink-0">
+                        <i class="fa-solid fa-shield-halved text-brand-red text-2xl"></i>
+                        <span class="text-xs text-gray-300 font-semibold leading-relaxed">
+                            Personal Coaching<br>
+                            For Your Fitness Goals
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Dynamic Personal Training Packages -->
+                <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    {% for package in personal_training_packages %}
+                    <div class="bg-black/60 rounded-2xl p-6 border border-white/10 hover:border-brand-red transition-all duration-300 pt-card flex flex-col">
+
+                        <div class="text-brand-red text-xs font-extrabold uppercase tracking-widest mb-3">
+                            {{ package.package_name }}
+                        </div>
+
+                        <h4 class="text-lg font-bold text-white mb-4">{{ package.duration }}</h4>
+
+                        <div class="text-3xl font-black text-white mb-4">
+                            ₹{{ package.price|floatformat:2 }}
+                        </div>
+
+                        <p class="text-sm text-gray-400 mb-5 leading-relaxed">
+                            {{ package.description|default:"Contact us for package details." }}
+                        </p>
+
+                        <div class="flex items-center text-sm text-gray-300 mb-5">
+                            <i class="fa-solid fa-dumbbell text-brand-red mr-3"></i>
+                            <span>{{ package.sessions }} Sessions</span>
+                        </div>
+
+                        <div class="border-t border-white/10 pt-5 mb-6">
+                            <h5 class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-4">Package Benefits</h5>
+
+                            <ul class="text-sm text-gray-300 space-y-3">
+                                {% for benefit in package.benefit_list %}
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-check text-brand-red mr-3 mt-1"></i>
+                                    <span>{{ benefit }}</span>
+                                </li>
+                                {% empty %}
+                                <li class="text-gray-400">Contact us to learn about package benefits.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <button
+                            type="button"
+                            onclick="selectPlan('Personal Training - {{ package.package_name|escapejs }} - {{ package.sessions }} Sessions - ₹{{ package.price }}', 'personal_training')"
+                            class="w-full mt-auto py-3.5 rounded-xl bg-brand-red/20 border border-brand-red/40 hover:bg-brand-red hover:border-brand-red text-white font-bold text-sm transition-all duration-300">
+                            <i class="fa-solid fa-calendar-check mr-2"></i>
+                            Book PT Package
+                        </button>
+                    </div>
+
+                    {% empty %}
+                    <div class="col-span-full text-center py-12 bg-black/30 rounded-2xl border border-white/10">
+                        <i class="fa-solid fa-dumbbell text-brand-red text-4xl mb-4"></i>
+                        <h4 class="text-white text-lg font-bold mb-2">Personal Training Packages Coming Soon</h4>
+                        <p class="text-gray-400 text-sm">Please check back later for available packages.</p>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <!-- Bottom Note -->
+                <div class="relative z-10 mt-10 pt-6 border-t border-white/10 text-center">
+                    <p class="text-xs text-gray-500">
+                        <i class="fa-solid fa-circle-info text-brand-red mr-2"></i>
+                        Contact our team for package details and training availability.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- END PERSONAL TRAINING SECTION -->
+
+
+    <!-- GYM TIMINGS & OPEN DATES SECTION -->
+    <section id="timings" class="py-24 bg-brand-darkBg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="timing-left">
+                    <span class="text-brand-red font-extrabold text-sm tracking-widest uppercase mb-2 block">Always Ready For You</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase mb-6">OPERATING HOURS & OPEN DAYS</h2>
+                    <p class="text-gray-400 text-base mb-8">PULSE FITNESS operates 365 days a year—including national holidays and weekends—so your momentum never stops.</p>
+
+                    <div class="space-y-4">
+                        <div class="glass-card rounded-xl p-5 flex items-center justify-between border-l-4 border-l-brand-red timing-item">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-lg bg-brand-red/10 text-brand-red flex items-center justify-center font-bold">
+                                    <i class="fa-regular fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-base">Monday – Saturday</h4>
+                                    <p class="text-xs text-gray-400">Regular Training Days</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-brand-red font-extrabold text-sm sm:text-base">5:30 AM – 10:00 PM</span>
+                                <span class="block text-[10px] text-emerald-400 font-semibold uppercase">Non-stop Access</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card rounded-xl p-5 flex items-center justify-between border-l-4 border-l-amber-500 timing-item">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-sun text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-base">Sunday</h4>
+                                    <p class="text-xs text-gray-400">Recovery & Open Mat</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-amber-400 font-extrabold text-sm sm:text-base">6:00 AM – 1:00 PM</span>
+                                <span class="block text-[10px] text-gray-400">Afternoon maintenance</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card rounded-xl p-5 flex items-center justify-between border-l-4 border-l-blue-500 timing-item">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-calendar-check text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-base">365 Days Open</h4>
+                                    <p class="text-xs text-gray-400">Public & Festive Holidays</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-blue-400 font-bold text-xs sm:text-sm">Special Morning Hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Peak Hours Breakdown Card -->
+                <div class="glass-card rounded-3xl p-8 border border-white/10 timing-right">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                        <i class="fa-solid fa-chart-simple text-brand-red mr-3"></i>
+                        Daily Facility Traffic & Peak Hours
+                    </h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-2">
+                                <span class="text-gray-300">Morning Peak (6:00 AM - 8:30 AM)</span>
+                                <span class="text-brand-red">High Crowd (85%)</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2.5">
+                                <div class="bg-brand-red h-2.5 rounded-full progress-bar" data-width="85%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-2">
+                                <span class="text-gray-300">Mid-Day (11:00 AM - 4:00 PM)</span>
+                                <span class="text-emerald-400">Low Crowd (30%) - Quietest</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2.5">
+                                <div class="bg-emerald-400 h-2.5 rounded-full progress-bar" data-width="30%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-2">
+                                <span class="text-gray-300">Evening Peak (6:00 PM - 9:00 PM)</span>
+                                <span class="text-brand-red">High Crowd (92%)</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2.5">
+                                <div class="bg-brand-red h-2.5 rounded-full progress-bar" data-width="92%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-2">
+                                <span class="text-gray-300">Night Session (9:00 PM - 10:00 PM)</span>
+                                <span class="text-amber-400">Moderate (45%)</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2.5">
+                                <div class="bg-amber-400 h-2.5 rounded-full progress-bar" data-width="45%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-brand-red/10 border border-brand-red/20 rounded-xl text-xs text-gray-300 flex items-start space-x-3">
+                        <i class="fa-solid fa-circle-info text-brand-red text-base mt-0.5"></i>
+                        <span><strong>Tip:</strong> Prefer empty power racks? Visit between 11:30 AM and 3:30 PM for a private gym atmosphere.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- GYM EQUIPMENT STORE SECTION -->
+    <section id="shop" class="py-24 bg-black relative border-t border-brand-cardBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 shop-header">
+                <div>
+                    <span class="text-brand-red font-extrabold text-sm tracking-widest uppercase mb-2 block">PULSE Gear Shop</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">BUY GYM EQUIPMENT</h2>
+                    <div class="w-16 h-1 bg-brand-red mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0">
+                    <button onclick="filterShop('all', this)" class="shop-filter-btn active bg-brand-red text-white px-4 py-2 rounded-lg text-xs font-bold transition-all">All Items</button>
+                    <button onclick="filterShop('weights', this)" class="shop-filter-btn glass-card text-gray-300 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition-all">Free Weights</button>
+                    <button onclick="filterShop('benches', this)" class="shop-filter-btn glass-card text-gray-300 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition-all">Benches & Racks</button>
+                    <button onclick="filterShop('accessories', this)" class="shop-filter-btn glass-card text-gray-300 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition-all">Accessories</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="products-grid">
+
+                {% for item in equipment %}
+                <div class="product-item glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 bg-gray-900 overflow-hidden">
+                            {% if item.image %}
+                                <img
+                                    src="{{ item.image.url }}"
+                                    alt="{{ item.name }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            {% else %}
+                                <div class="w-full h-full flex items-center justify-center text-gray-400">No image available</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="p-5">
+                            <h3 class="text-white font-bold text-base mb-1">{{ item.name }}</h3>
+                            <p class="text-gray-400 text-xs mb-3">{{ item.description|default:"Contact us for more details." }}</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 pt-0">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xl font-black text-white">₹{{ item.price }}</span>
+                        </div>
+
+                        <a href="{% url 'equipment_enquiry' %}?item={{ item.name|urlencode }}"
+                           class="w-full py-2.5 rounded-xl bg-brand-red hover:bg-brand-redDark text-white font-bold text-xs transition-colors flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Enquire Now</span>
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-400 col-span-full">
+                    Gym equipment will be available soon. Please check back later.
+                </p>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- TRAINERS SECTION -->
+    <section id="trainers" class="py-24 bg-brand-darkBg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 section-header">
+                <span class="text-brand-red font-extrabold text-sm tracking-widest uppercase mb-2 block">World-Class Coaching</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">MEET OUR MASTER TRAINERS</h2>
+                <div class="w-16 h-1 bg-brand-red mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Trainer 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden group trainer-card">
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=600" alt="Head Strength Coach" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-cardBg via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-brand-red text-xs font-black uppercase">Head Strength Coach</span>
+                        <h3 class="text-xl font-bold text-white mt-1">Vikram "The Titan" Singh</h3>
+                        <p class="text-gray-400 text-xs mt-2">10+ Years Experience in Powerlifting & Hypertrophy programming. Certified CSCS.</p>
+                        <div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center text-xs text-gray-300">
+                            <span>Specialty: Powerlifting</span>
+                            <button onclick="openModal('pt-request', 'Vikram Singh')" class="text-brand-red hover:underline font-bold">Book PT</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group trainer-card">
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=600" alt="HIIT Coach" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-cardBg via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-brand-red text-xs font-black uppercase">Fat Loss & HIIT Specialist</span>
+                        <h3 class="text-xl font-bold text-white mt-1">Elena Rostova</h3>
+                        <p class="text-gray-400 text-xs mt-2">Specializes in high-intensity body transformation, metabolic conditioning & endurance.</p>
+                        <div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center text-xs text-gray-300">
+                            <span>Specialty: Calorie Shred</span>
+                            <button onclick="openModal('pt-request', 'Elena Rostova')" class="text-brand-red hover:underline font-bold">Book PT</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trainer 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden group sm:col-span-2 lg:col-span-1 trainer-card">
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=600" alt="Boxing Coach" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-cardBg via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-brand-red text-xs font-black uppercase">Boxing & Conditioning Head</span>
+                        <h3 class="text-xl font-bold text-white mt-1">Marcus Vance</h3>
+                        <p class="text-gray-400 text-xs mt-2">Ex-pro golden gloves fighter specializing in striking mechanics, footwork, and core power.</p>
+                        <div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center text-xs text-gray-300">
+                            <span>Specialty: Pro Boxing</span>
+                            <button onclick="openModal('pt-request', 'Marcus Vance')" class="text-brand-red hover:underline font-bold">Book PT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SUPPLEMENT STORE SECTION -->
+    <section id="supplements" class="py-24 bg-black relative border-t border-brand-cardBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 shop-header">
+                <div>
+                    <span class="text-brand-red font-extrabold text-sm tracking-widest uppercase mb-2 block">PULSE Nutrition Shop</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">BUY SUPPLEMENTS</h2>
+                    <div class="w-16 h-1 bg-brand-red mt-4 rounded-full"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                {% for item in supplements %}
+                <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 bg-gray-900 overflow-hidden">
+                            {% if item.image %}
+                                <img
+                                    src="{{ item.image.url }}"
+                                    alt="{{ item.name }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            {% else %}
+                                <div class="w-full h-full flex items-center justify-center text-gray-400">No image available</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="p-5">
+                            <h3 class="text-white font-bold text-base mb-1">{{ item.name }}</h3>
+                            <p class="text-gray-400 text-xs mb-3">{{ item.description|default:"Contact us for more details." }}</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 pt-0">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xl font-black text-white">₹{{ item.price }}</span>
+                        </div>
+
+                        <a href="{% url 'equipment_enquiry' %}?item={{ item.name|urlencode }}"
+                           class="w-full py-2.5 rounded-xl bg-brand-red hover:bg-brand-redDark text-white font-bold text-xs transition-colors flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Enquire Now</span>
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-400 col-span-full">Supplements will be available soon. Please check back later.</p>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+    <!-- END SUPPLEMENT STORE SECTION -->
+
+
+    <!-- FOOTER SECTION -->
+    <footer id="contact" class="bg-black text-gray-400 pt-16 pb-12 border-t border-brand-cardBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+                <div>
+                    <a href="#" class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 bg-brand-red rounded flex items-center justify-center">
+                            <i class="fa-solid fa-dumbbell text-white text-base"></i>
+                        </div>
+                        <span class="text-xl font-black text-white">PULSE<span class="text-brand-red">.</span>FITNESS</span>
+                    </a>
+                    <p class="text-xs text-gray-400 leading-relaxed mb-6">
+                        The premiere athletic sanctuary equipped with top-tier power machinery, combat rings, and certified conditioning specialists.
+                    </p>
+                    <div class="flex space-x-4 text-gray-400">
+                        <a href="#" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+                        <a href="#" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
+                        <a href="#" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
+                        <a href="#" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase mb-4 tracking-wider">Quick Navigation</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#home" class="hover:text-brand-red transition-colors">Home Page</a></li>
+                        <li><a href="#programs" class="hover:text-brand-red transition-colors">Training Programs</a></li>
+                        <li><a href="#pricing" class="hover:text-brand-red transition-colors">Membership Fees</a></li>
+                        <li><a href="#personal-training" class="hover:text-brand-red transition-colors">Personal Training Rates</a></li>
+                        <li><a href="#shop" class="hover:text-brand-red transition-colors">Gym Gear Store</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase mb-4 tracking-wider">Contact & Location</h4>
+                    <ul class="space-y-3 text-xs">
+                        <li class="flex items-start space-x-3">
+                            <i class="fa-solid fa-location-dot text-brand-red mt-0.5"></i>
+                            <span>123 Fitness Boulevard, Stadium Ring Road, Kochi, Kerala</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-phone text-brand-red"></i>
+                            <span>+91 98765 43210 / +91 0484 220011</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-envelope text-brand-red"></i>
+                            <span>join@pulsefitness.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase mb-4 tracking-wider">Join Newsletter</h4>
+                    <p class="text-xs text-gray-400 mb-4">Get free workout routines and diet tips delivered weekly.</p>
+                    <form onsubmit="event.preventDefault(); alert('Subscribed successfully!');" class="space-y-2">
+                        <input type="email" placeholder="Enter your email" required class="w-full px-4 py-2.5 rounded-lg bg-brand-cardBg border border-brand-cardBorder text-white text-xs focus:outline-none focus:border-brand-red">
+                        <button type="submit" class="w-full py-2.5 rounded-lg bg-brand-red hover:bg-brand-redDark text-white font-bold text-xs transition-colors">
+                            Subscribe Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-brand-cardBorder pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+                <p>&copy; 2026 PULSE FITNESS Center. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:underline">Privacy Policy</a>
+                    <a href="#" class="hover:underline">Terms of Service</a>
+                    <a href="#" class="hover:underline">Gym Rules & Guidelines</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHOPPING CART DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-300">
+        <div id="cart-backdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto hidden"></div>
+        <div id="cart-panel" class="absolute inset-y-0 right-0 max-w-full flex pl-10 transform translate-x-full transition-transform duration-300 pointer-events-auto">
+            <div class="w-screen max-w-md bg-brand-cardBg border-l border-brand-cardBorder p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                        <h3 class="text-lg font-bold text-white flex items-center">
+                            <i class="fa-solid fa-cart-shopping text-brand-red mr-3"></i>
+                            Your Gear Cart
+                        </h3>
+                        <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-white text-xl">&times;</button>
+                    </div>
+
+                    <div id="cart-items" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                        <p class="text-xs text-gray-500 text-center py-8">Your cart is empty.</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/10 pt-4">
+                    <div class="flex justify-between text-sm font-bold text-white mb-4">
+                        <span>Total Amount:</span>
+                        <span id="cart-total" class="text-brand-red">₹0</span>
+                    </div>
+                    <button onclick="checkoutCart()" class="w-full py-3 bg-brand-red hover:bg-brand-redDark text-white font-bold rounded-xl text-sm transition-colors">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GENERAL REGISTRATION & PT MODAL -->
+    <div id="action-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="bg-brand-cardBg border border-brand-cardBorder w-full max-w-md rounded-2xl p-6 sm:p-8 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+
+            <div id="modal-content">
+                <h3 id="modal-title" class="text-2xl font-black text-white mb-2 uppercase">JOIN PULSE FITNESS</h3>
+                <p id="modal-desc" class="text-xs text-gray-400 mb-6">Fill in your details and our team will get in touch immediately.</p>
+
+                <form id="action-form" method="post" action="{% url 'membership_enquiry' %}" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="enquiry_type" id="modal-enquiry-type" value="membership">
+                    <input type="hidden" name="selected_item" id="modal-selected-item" value="">
+
+                    <div>
+                        <label for="modal-full-name" class="block text-xs font-bold text-gray-300 mb-1">Full Name</label>
+                        <input id="modal-full-name" name="full_name" type="text" required autocomplete="name" placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl bg-black border border-white/10 text-white text-xs focus:outline-none focus:border-brand-red">
+                    </div>
+                    <div>
+                        <label for="modal-phone" class="block text-xs font-bold text-gray-300 mb-1">Phone Number</label>
+                        <input id="modal-phone" name="phone" type="tel" required autocomplete="tel" placeholder="+91 98765 43210" class="w-full px-4 py-2.5 rounded-xl bg-black border border-white/10 text-white text-xs focus:outline-none focus:border-brand-red">
+                    </div>
+                    <div>
+                        <label for="modal-email" class="block text-xs font-bold text-gray-300 mb-1">Email Address</label>
+                        <input id="modal-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" class="w-full px-4 py-2.5 rounded-xl bg-black border border-white/10 text-white text-xs focus:outline-none focus:border-brand-red">
+                    </div>
+                    <div>
+                        <label for="membership-message" class="block text-xs font-bold text-gray-300 mb-1">Message</label>
+                        <textarea id="membership-message" name="message" rows="3" placeholder="Write your enquiry message here..." required class="w-full px-4 py-2.5 rounded-xl bg-black border border-white/10 text-white text-xs focus:outline-none focus:border-brand-red"></textarea>
+                    </div>
+                    <div>
+                        <label for="modal-start-date" class="block text-xs font-bold text-gray-300 mb-1">Preferred Start Date</label>
+                        <input id="modal-start-date" name="preferred_start_date" type="date" required class="w-full px-4 py-2.5 rounded-xl bg-black border border-white/10 text-white text-xs focus:outline-none focus:border-brand-red">
+                    </div>
+                    <button type="submit" class="w-full py-3 rounded-xl bg-brand-red hover:bg-brand-redDark text-white font-bold text-sm transition-colors">
+                        Submit Application
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // ==========================================
+        // 1. MOBILE MENU TOGGLE
+        // ==========================================
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+
+        // ==========================================
+        // 2. SHOPPING CART
+        // ==========================================
+        let cart = [];
+
+        function addToCart(title, price) {
+            const numericPrice = Number(price);
+
+            if (!Number.isFinite(numericPrice) || numericPrice < 0) {
+                alert('Invalid product price.');
+                return;
+            }
+
+            cart.push({ title: String(title), price: numericPrice });
+
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartCountMobile = document.getElementById('cart-count-mobile');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            if (cartCount) cartCount.textContent = cart.length;
+            if (cartCountMobile) cartCountMobile.textContent = cart.length;
+
+            if (!cartItems || !cartTotal) return;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML =
+                    '<p class="text-xs text-gray-500 text-center py-8">Your cart is empty.</p>';
+                cartTotal.textContent = '₹0';
+                return;
+            }
+
+            let total = 0;
+            cartItems.replaceChildren();
+
+            cart.forEach((item, index) => {
+                total += item.price;
+
+                const itemRow = document.createElement('div');
+                itemRow.className =
+                    'flex items-center justify-between p-3 bg-black/40 rounded-xl border border-white/5';
+
+                const itemDetails = document.createElement('div');
+
+                const itemTitle = document.createElement('h5');
+                itemTitle.className = 'text-xs font-bold text-white';
+                itemTitle.textContent = item.title;
+
+                const itemPrice = document.createElement('span');
+                itemPrice.className = 'text-xs text-brand-red font-semibold';
+                itemPrice.textContent = '₹' + item.price.toLocaleString('en-IN');
+
+                itemDetails.append(itemTitle, itemPrice);
+
+                const removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.className = 'text-gray-500 hover:text-brand-red text-xs';
+                removeButton.setAttribute('aria-label', 'Remove ' + item.title);
+                removeButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                removeButton.addEventListener('click', () => {
+                    removeFromCart(index);
+                });
+
+                itemRow.append(itemDetails, removeButton);
+                cartItems.appendChild(itemRow);
+            });
+
+            cartTotal.textContent = '₹' + total.toLocaleString('en-IN');
+        }
+
+        function removeFromCart(index) {
+            if (index < 0 || index >= cart.length) return;
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleCartDrawer(openForce) {
+            const backdrop = document.getElementById('cart-backdrop');
+            const panel = document.getElementById('cart-panel');
+
+            if (!backdrop || !panel) return;
+
+            const shouldOpen =
+                typeof openForce === 'boolean'
+                    ? openForce
+                    : backdrop.classList.contains('hidden');
+
+            if (shouldOpen) {
+                backdrop.classList.remove('hidden');
+
+                requestAnimationFrame(() => {
+                    backdrop.classList.remove('opacity-0');
+                    panel.classList.remove('translate-x-full');
+                });
+            } else {
+                backdrop.classList.add('opacity-0');
+                panel.classList.add('translate-x-full');
+
+                setTimeout(() => {
+                    backdrop.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Demo checkout, not a real payment.
+            alert(
+                'Thank you! Your order request has been received. ' +
+                'Please contact our team to complete your purchase.'
+            );
+
+            cart = [];
+            updateCartUI();
+            toggleCartDrawer(false);
+        }
+
+
+        // ==========================================
+        // 3. SHOP CATEGORY FILTER
+        // ==========================================
+        function filterShop(category, clickedButton = null) {
+            const buttons = document.querySelectorAll('.shop-filter-btn');
+            const items = document.querySelectorAll('.product-item');
+
+            buttons.forEach(button => {
+                button.classList.remove('bg-brand-red', 'text-white');
+            });
+
+            if (clickedButton) {
+                clickedButton.classList.add('bg-brand-red', 'text-white');
+            }
+
+            items.forEach(item => {
+                const matches =
+                    category === 'all' ||
+                    item.classList.contains(category);
+
+                item.style.display = matches ? 'flex' : 'none';
+
+                if (matches && typeof gsap !== 'undefined') {
+                    gsap.fromTo(
+                        item,
+                        { opacity: 0, scale: 0.95 },
+                        { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' }
+                    );
+                }
+            });
+        }
+
+
+        // ==========================================
+        // 4. ENQUIRY MODAL
+        // ==========================================
+        function openModal(type = 'membership', extraInfo = '') {
+            const modal = document.getElementById('action-modal');
+            const title = document.getElementById('modal-title');
+            const desc = document.getElementById('modal-desc');
+            const enquiryType = document.getElementById('modal-enquiry-type');
+            const selectedItem = document.getElementById('modal-selected-item');
+
+            if (!modal || !title || !desc || !enquiryType || !selectedItem) {
+                console.error('One or more enquiry modal elements are missing.');
+                return;
+            }
+
+            enquiryType.value = type;
+            selectedItem.value = extraInfo;
+
+            switch (type) {
+                case 'trial':
+                    title.textContent = '7-DAY FREE TRIAL PASS';
+                    desc.textContent =
+                        'Claim your 7-day complimentary pass with access to our facilities and classes.';
+                    break;
+
+                case 'membership':
+                    title.textContent = 'JOIN PULSE FITNESS';
+                    desc.textContent =
+                        'Fill out your details to enquire about club membership.';
+                    break;
+
+                case 'personal_training':
+                    title.textContent = 'BOOK PERSONAL TRAINING';
+                    desc.textContent =
+                        'Enquire about your selected training package: ' + extraInfo + '.';
+                    break;
+
+                case 'pt-request':
+                    title.textContent = 'BOOK PT WITH ' + extraInfo.toUpperCase();
+                    desc.textContent =
+                        'Schedule a one-on-one consultation session with ' + extraInfo + '.';
+                    break;
+
+                case 'program':
+                    title.textContent = extraInfo.toUpperCase() + ' PROGRAM';
+                    desc.textContent =
+                        'Register your interest in the ' + extraInfo + ' program.';
+                    break;
+
+                default:
+                    title.textContent = 'CONTACT PULSE FITNESS';
+                    desc.textContent =
+                        'Fill out your details and our team will contact you.';
+            }
+
+            modal.classList.remove('hidden');
+
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(
+                    '#action-modal > div',
+                    { scale: 0.8, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' }
+                );
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('action-modal');
+
+            if (!modal) return;
+
+            if (typeof gsap !== 'undefined') {
+                gsap.to('#action-modal > div', {
+                    scale: 0.8,
+                    opacity: 0,
+                    duration: 0.2,
+                    onComplete: () => {
+                        modal.classList.add('hidden');
+                    }
+                });
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function selectPlan(planName, type = 'membership') {
+            openModal(type, planName);
+
+            const title = document.getElementById('modal-title');
+
+            if (title) {
+                title.textContent = 'ENQUIRE: ' + planName.toUpperCase();
+            }
+        }
+
+
+        // ==========================================
+        // 5. GSAP ANIMATIONS
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined') {
+                console.warn('GSAP is not loaded. Animations are disabled.');
+                updateCartUI();
+                return;
+            }
+
+            if (typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+            }
+
+            const hasScrollTrigger = typeof ScrollTrigger !== 'undefined';
+
+            // Hero animation
+            const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+            if (document.querySelector('.hero-bg-img')) {
+                heroTl.from('.hero-bg-img', { scale: 1.2, duration: 1.8, ease: 'power2.out' });
+            }
+
+            if (document.querySelector('.hero-elem')) {
+                heroTl.from('.hero-elem', { y: 50, opacity: 0, duration: 0.8, stagger: 0.2 }, '-=1.2');
+            }
+
+            if (document.querySelector('.stat-box')) {
+                heroTl.from('.stat-box', { y: 30, opacity: 0, duration: 0.6, stagger: 0.1 }, '-=0.4');
+            }
+
+            if (hasScrollTrigger) {
+                // Section headers
+                gsap.utils.toArray('.section-header').forEach(header => {
+                    gsap.from(header, {
+                        scrollTrigger: { trigger: header, start: 'top 85%' },
+                        y: 40, opacity: 0, duration: 0.8, ease: 'power3.out'
+                    });
+                });
+
+                // Program cards
+                if (document.querySelector('#program-cards-container .program-card')) {
+                    gsap.from('#program-cards-container .program-card', {
+                        scrollTrigger: { trigger: '#program-cards-container', start: 'top 80%' },
+                        y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
+                    });
+                }
+
+                // Membership pricing cards
+                if (document.querySelector('#pricing .pricing-card')) {
+                    gsap.from('#pricing .pricing-card', {
+                        scrollTrigger: { trigger: '#pricing', start: 'top 75%' },
+                        y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'back.out(1.2)'
+                    });
+                }
+
+                // Personal training: opacity is always restored (clearProps) so cards
+                // can never stay hidden if the trigger fires late.
+                if (document.querySelector('#personal-training .pt-section')) {
+                    gsap.from('#personal-training .pt-section', {
+                        scrollTrigger: { trigger: '#personal-training', start: 'top 85%', once: true },
+                        y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
+                        clearProps: 'opacity,transform'
+                    });
+                }
+
+                if (document.querySelector('#personal-training .pt-card')) {
+                    gsap.from('#personal-training .pt-card', {
+                        scrollTrigger: { trigger: '#personal-training', start: 'top 85%', once: true },
+                        y: 40, opacity: 0, duration: 0.6, stagger: 0.15, ease: 'power2.out',
+                        clearProps: 'opacity,transform'
+                    });
+                }
+
+                // Timings section
+                if (document.querySelector('#timings')) {
+                    gsap.from('.timing-left', {
+                        scrollTrigger: { trigger: '#timings', start: 'top 80%' },
+                        x: -50, opacity: 0, duration: 0.8, ease: 'power3.out'
+                    });
+
+                    gsap.from('.timing-right', {
+                        scrollTrigger: { trigger: '#timings', start: 'top 80%' },
+                        x: 50, opacity: 0, duration: 0.8, ease: 'power3.out'
+                    });
+                }
+
+                // Progress bars
+                gsap.utils.toArray('.progress-bar').forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-width');
+                    if (!targetWidth) return;
+
+                    gsap.fromTo(
+                        bar,
+                        { width: '0%' },
+                        {
+                            width: targetWidth,
+                            duration: 1.2,
+                            ease: 'power2.out',
+                            scrollTrigger: { trigger: bar, start: 'top 90%' }
+                        }
+                    );
+                });
+
+                // Shop header and product cards
+                if (document.querySelector('#shop')) {
+                    gsap.from('#shop .shop-header', {
+                        scrollTrigger: { trigger: '#shop', start: 'top 85%' },
+                        y: 30, opacity: 0, duration: 0.8, ease: 'power3.out'
+                    });
+
+                    if (document.querySelector('#products-grid .product-item')) {
+                        gsap.from('#products-grid .product-item', {
+                            scrollTrigger: { trigger: '#products-grid', start: 'top 80%' },
+                            y: 50, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out'
+                        });
+                    }
+                }
+
+                // Trainer cards
+                if (document.querySelector('#trainers .trainer-card')) {
+                    gsap.from('#trainers .trainer-card', {
+                        scrollTrigger: { trigger: '#trainers', start: 'top 80%' },
+                        y: 60, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out'
+                    });
+                }
+
+                // Recalculate trigger positions after images/fonts finish loading
+                window.addEventListener('load', () => ScrollTrigger.refresh());
+            }
+
+            // Hover animations
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, { y: -6, duration: 0.3, ease: 'power2.out' });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' });
+                });
+            });
+
+            updateCartUI();
+        });
+    </script>
+
+</body>
+</html>

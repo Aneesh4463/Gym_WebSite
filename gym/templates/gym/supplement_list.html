@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Supplements | PULSE FITNESS</title>
+</head>
+<body>
+
+    <h1>Manage Supplements</h1>
+
+    <p>
+        <a href="{% url 'add_supplement' %}">Add New Supplement</a>
+    </p>
+
+    <p>
+        <a href="{% url 'owner_dashboard' %}">Back to Dashboard</a>
+    </p>
+
+    <hr>
+
+    {% for supplement in supplements %}
+        <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px;">
+
+            {% if supplement.image %}
+                <img
+                    src="{{ supplement.image.url }}"
+                    alt="{{ supplement.name }}"
+                    width="150"
+                >
+            {% endif %}
+
+            <h2>{{ supplement.name }}</h2>
+
+            <p>{{ supplement.description|default:"No description available." }}</p>
+
+            <p><strong>Price:</strong> ₹{{ supplement.price }}</p>
+
+            <p>
+                <strong>Availability:</strong>
+                {% if supplement.is_available %}
+                    Available
+                {% else %}
+                    Unavailable
+                {% endif %}
+            </p>
+
+            <a href="{% url 'edit_supplement' supplement.id %}">
+                Edit Supplement
+            </a>
+
+            |
+
+            <a href="{% url 'delete_supplement' supplement.id %}">
+                Delete Supplement
+            </a>
+
+        </div>
+
+    {% empty %}
+        <p>No supplements have been added yet.</p>
+    {% endfor %}
+
+</body>
+</html>

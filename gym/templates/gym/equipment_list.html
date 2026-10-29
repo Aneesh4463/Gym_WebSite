@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Equipment | PULSE FITNESS</title>
+</head>
+<body>
+    <h1>PULSE FITNESS</h1>
+    <h2>Manage Gym Equipment</h2>
+
+    <p>
+        <a href="{% url 'add_equipment' %}">
+            Add New Equipment
+        </a>
+    </p>
+
+    <hr>
+
+    {% for equipment in equipment_list %}
+        <div>
+            <h3>{{ equipment.name }}</h3>
+
+            {% if equipment.image %}
+                <img
+                    src="{{ equipment.image.url }}"
+                    alt="{{ equipment.name }}"
+                    width="200"
+                >
+            {% endif %}
+
+            <p>{{ equipment.description }}</p>
+            <p>Price: ₹{{ equipment.price }}</p>
+
+            {% if equipment.is_available %}
+                <p>Available</p>
+            {% else %}
+                <p>Unavailable</p>
+            {% endif %}
+        </div>
+
+        
+<p>
+    <a href="{% url 'edit_equipment' equipment.id %}">
+        Edit Equipment
+    </a>
+</p>
+
+
+<p>
+    <a href="{% url 'delete_equipment' equipment.id %}">
+        Delete Equipment
+    </a>
+</p>
+
+
+
+        <hr>
+    {% empty %}
+        <p>No equipment has been added yet.</p>
+    {% endfor %}
+
+    <p>
+        <a href="{% url 'owner_dashboard' %}">
+            Back to Dashboard
+        </a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Enquiries | PULSE FITNESS</title>
+</head>
+<body>
+
+    <h1>Customer Enquiries</h1>
+
+    <p>
+        <a href="{% url 'owner_dashboard' %}">Back to Dashboard</a>
+    </p>
+
+    {% for title, category_enquiries in enquiry_sections %}
+        <h2>{{ title }}</h2>
+
+        {% if category_enquiries %}
+            <table border="1" cellpadding="10" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Item / Plan</th>
+                        <th>Message</th>
+                        <th>Submitted At</th>
+                        <th>Contacted?</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for enquiry in category_enquiries %}
+                        <tr>
+                            <td>{{ enquiry.name }}</td>
+                            <td>{{ enquiry.phone }}</td>
+                            <td>{{ enquiry.email }}</td>
+                            <td>{{ enquiry.item_name }}</td>
+                            <td>{{ enquiry.message|default:"No message" }}</td>
+                            <td>{{ enquiry.created_at|date:"d M Y, h:i A" }}</td>
+                            <td>
+                                {% if enquiry.is_contacted %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if not enquiry.is_contacted %}
+                                    <form method="POST"
+                                          action="{% url 'mark_enquiry_contacted' enquiry.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit">
+                                            Mark as Contacted
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    Completed
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No {{ title|lower }} yet.</p>
+        {% endif %}
+
+    {% endfor %}
+
+</body>
+</html>

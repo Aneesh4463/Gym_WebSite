@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard | PULSE FITNESS</title>
+</head>
+<body>
+    <h1>PULSE FITNESS</h1>
+    <h2>Owner Dashboard</h2>
+
+    <p>Welcome to the gym management dashboard.</p>
+
+    <a href="{% url 'membership_plan_list' %}">
+        Manage Membership Plans
+    </a>
+
+    
+<p>
+    <a href="{% url 'training_program_list' %}">Manage Training Programs</a>
+</p>
+
+<p>
+    <a href="{% url 'add_training_program' %}">Add Training Program</a>
+</p>
+
+<p>
+    <a href="{% url 'equipment_list' %}">Manage Equipment</a>
+</p>
+
+<p>
+    <a href="{% url 'add_equipment' %}">Add New Equipment</a>
+</p>
+
+
+<p>
+    <a href="{% url 'enquiry_list' %}">Manage Customer Enquiries</a>
+</p>
+
+
+
+<p>
+    <a href="{% url 'supplement_list' %}">Manage Supplements</a>
+</p>
+
+<p>
+    <a href="{% url 'add_supplement' %}">Add New Supplement</a>
+</p>
+
+<p>
+    <a href="{% url 'personal_training_package_list' %}">Manage Personal Training Packages</a>
+</p>
+
+
+
+
+
+
+
+    <form method="POST" action="{% url 'owner_logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

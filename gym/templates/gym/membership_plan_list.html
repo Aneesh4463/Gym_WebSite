@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Membership Plans | PULSE FITNESS</title>
+</head>
+<body>
+    <h1>Manage Membership Plans</h1>
+
+        <a href="{% url 'add_membership_plan' %}">Add New Plan</a>
+
+        
+    <form method="POST" action="{% url 'owner_logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+    <hr>
+
+    {% for plan in plans %}
+        <div>
+            <h3>{{ plan.plan_name }}</h3>
+            <p>Duration: {{ plan.duration }}</p>
+            <p>Price: ₹{{ plan.price }}</p>
+            <p>Description: {{ plan.description }}</p>
+            <p>Active: {{ plan.is_active }}</p>
+            <a href="{% url 'edit_membership_plan' plan.id %}">Edit Plan</a>
+            <a href="{% url 'delete_membership_plan' plan.id %}">Delete Plan</a>
+        </div>
+        <hr>
+    {% empty %}
+        <p>No membership plans have been added yet.</p>
+      
+    {% endfor %}
+</body>
+</html>
+

@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Personal Training Package | PULSE FITNESS</title>
+</head>
+<body>
+
+    <h1>Edit Personal Training Package</h1>
+
+    <p>
+        <a href="{% url 'personal_training_package_list' %}">
+            Back to Packages
+        </a>
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Update Package</button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Enquiry | PULSE FITNESS</title>
+</head>
+<body>
+
+    <h1>Equipment Enquiry</h1>
+
+    {% if success %}
+        <p>Your enquiry has been submitted successfully!</p>
+        <a href="/">Back to Home</a>
+    {% else %}
+        <p>Enter your details and our team will contact you.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Submit Enquiry</button>
+        </form>
+
+        <p><a href="/">Back to Home</a></p>
+    {% endif %}
+
+</body>
+</html>
